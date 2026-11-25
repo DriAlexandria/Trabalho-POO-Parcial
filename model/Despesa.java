@@ -61,4 +61,4 @@ public abstract class Despesa implements Serializable {
     public abstract BigDecimal getValorTotalCalculado();
     public abstract BigDecimal getValorIndividual(Participante p);
     public abstract String getTipo();
-}
+} 
