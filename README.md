@@ -21,12 +21,12 @@ Aplicação em **Java + Swing** para planejar despesas compartilhadas em um pass
 ### Contribuições
 
 | Integrante | Responsabilidade |
-|---|---|
-| Rebeca de Morais Lima - 2641684 | Model + diagrama UML + relatório em PDF (organização, revisão ABNT e conferência com a proposta) + GitHub (subir o código, revisão do README, link acessível) + ajuda nos códigos da equipe (revisão e integração) |
-| Eduardo Carvalho Pereyra | Regras de negócio, simulador e exceções |
-| Drielly Alexandria Tavares | View (`MainFrame`, abas, tabelas e diálogos em Swing) + README + GitHub |
-| Pedro Henrique Marinho Eusébio | Persistência e integração MVC |
-| Eliabe Torres Bessa | Testes e validação |
+| --- | --- |
+| Rebeca de Morais Lima - 2641684 | Model + diagrama UML + relatório em PDF (organização, revisão ABNT e conferência com a proposta) + GitHub (ajuda a subir o código, revisão do README, link acessível) + ajuda nos códigos da equipe (revisão e integração) |
+| Eduardo Carvalho Pereyra - 2641689 | Controller (`PlanejamentoController` — validar entradas, orquestrar o Model e atualizar a View) + Test (`TestePlanejamentoSuite` — 8 testes) |
+| Drielly Alexandria Tavares - 2641604 | View (`MainFrame`, abas, tabelas e diálogos em Swing) + README + GitHub |
+| Pedro Henrique Marinho Eusébio - 2641610 | Persistence (`IPersistenciaPlanejamento` e `SerializacaoPlanejamento` — salvar/carregar, arquivo ausente/corrompido) + Simulador de otimização (essenciais, opcionais com prioridade, busca e sem solução) |
+| Eliabe Torres Bessa - 2640888 | Exception (`ValidacaoException` e `PersistenciaException` — tratamento de erros, mensagens e preservação do estado) + apoio na validação |
 
 ---
 
