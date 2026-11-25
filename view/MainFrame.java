@@ -62,9 +62,36 @@ public class MainFrame extends JFrame {
         itemCarregar.addActionListener(e -> acaoCarregar());
 
         JMenuItem itemNovo = new JMenuItem("Novo Planejamento");
-        itemNovo.addActionListener(e -> acaoNovo());
+        itemNovo.addActionListener(e ->
+private void acaoCarregarCasoReferencia() {
+    try {
+        controller.carregarCasoReferencia();
+        atualizarTodasTabelas();
+        txtResultadoSimulador.setText("");
 
+        JOptionPane.showMessageDialog(
+                this,
+                "Caso de referência carregado com sucesso!",
+                "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+    } catch (ValidacaoException ex) {
+        JOptionPane.showMessageDialog(
+                this,
+                ex.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+}
+ acaoNovo());
+
+JMenuItem itemReferencia = new JMenuItem("Carregar Caso de Referência");
+itemReferencia.addActionListener(e -> acaoCarregarCasoReferencia());
         menuArquivo.add(itemNovo);
+
+menuArquivo.add(item referência);
         menuArquivo.addSeparator();
         menuArquivo.add(itemSalvar);
         menuArquivo.add(itemCarregar);
