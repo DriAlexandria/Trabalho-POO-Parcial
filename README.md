@@ -111,10 +111,4 @@ Trabalho-POO-Parcial/
 │
 ├── view/            # Interfaces gráficas (Java Swing)
 │
-└── .gitignore       # Arquivos ignorados pelo Gitgit clone https://github.com/DriAlexandria/Trabalho-POO-Parcial.gitcd Trabalho-POO-Parcialmkdir out
-
-dir /s /b controller\*.java exception\*.java model\*.java persistence\*.java view\*.java > fontes.txt
-
-javac -d out @fontes.txtjava -cp out cabenobolso.view.MainFramejavac -cp out -d out test\TestePlanejamentoSuite.java
-
-java -cp out cabenobolso.test.TestePlanejamentoSuite
+└── .gitignore       # Arquivos 
