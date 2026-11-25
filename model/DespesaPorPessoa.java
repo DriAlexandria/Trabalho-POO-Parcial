@@ -33,4 +33,4 @@ public class DespesaPorPessoa extends Despesa {
     public String getTipo() {
         return "Por pessoa";
     }
-} 
+}
