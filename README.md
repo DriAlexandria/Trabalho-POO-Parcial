@@ -111,4 +111,4 @@ Trabalho-POO-Parcial/
 │
 ├── view/            # Interfaces gráficas (Java Swing)
 │
-└── .gitignore       # Arquivos 
+└── .gitignore
