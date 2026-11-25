@@ -31,4 +31,4 @@ public class ParticipanteTableModel extends AbstractTableModel {
             default: return null;
         }
     }
-}
+} 
