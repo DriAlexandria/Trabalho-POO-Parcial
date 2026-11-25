@@ -39,4 +39,4 @@ public class SerializacaoPlanejamento implements IPersistenciaPlanejamento {
             throw new PersistenciaException("Falha ao desserializar arquivo: dados corrompidos ou versão incompatível.", e);
         }
     }
-}
+} 
