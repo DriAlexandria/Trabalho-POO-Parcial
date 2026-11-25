@@ -30,6 +30,10 @@ public abstract class Despesa implements Serializable {
             throw new ValidacaoException("Cada despesa deve conter pelo menos um participante vinculado.");
         }
 
+        if (participantes.stream().anyMatch(Objects::isNull)) {
+            throw new ValidacaoException("A despesa não pode conter participante nulo.");
+        }
+
         // Garantir unicidade sem repetições de participantes
         Set<Participante> semDuplicados = new LinkedHashSet<>(participantes);
         if (semDuplicados.size() != participantes.size()) {

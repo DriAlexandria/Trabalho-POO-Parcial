@@ -42,15 +42,24 @@ public class PlanejamentoController {
     public void adicionarDespesa(String id, String desc, BigDecimal valor, String tipo, 
                                  List<Participante> parts, boolean essencial, int prioridade) 
                                  throws ValidacaoException {
-        Despesa d;
+        planejamento.adicionarDespesa(criarDespesa(id, desc, valor, tipo, parts, essencial, prioridade));
+    }
+
+    public void alterarDespesa(String id, String desc, BigDecimal valor, String tipo,
+                               List<Participante> parts, boolean essencial, int prioridade)
+                               throws ValidacaoException {
+        planejamento.alterarDespesa(criarDespesa(id, desc, valor, tipo, parts, essencial, prioridade));
+    }
+
+    private Despesa criarDespesa(String id, String desc, BigDecimal valor, String tipo,
+                                List<Participante> parts, boolean essencial, int prioridade)
+                                throws ValidacaoException {
         if ("Fixa".equalsIgnoreCase(tipo)) {
-            d = new DespesaFixa(id, desc, valor, parts, essencial, prioridade);
+            return new DespesaFixa(id, desc, valor, parts, essencial, prioridade);
         } else if ("Por pessoa".equalsIgnoreCase(tipo)) {
-            d = new DespesaPorPessoa(id, desc, valor, parts, essencial, prioridade);
-        } else {
-            throw new ValidacaoException("Tipo de despesa inválido: " + tipo);
+            return new DespesaPorPessoa(id, desc, valor, parts, essencial, prioridade);
         }
-        planejamento.adicionarDespesa(d);
+        throw new ValidacaoException("Tipo de despesa inválido: " + tipo);
     }
 
     public void excluirDespesa(String id) throws ValidacaoException {

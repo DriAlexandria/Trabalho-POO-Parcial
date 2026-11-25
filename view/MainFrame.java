@@ -166,9 +166,19 @@ public class MainFrame extends JFrame {
 
         JPanel pnlBotoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton btnAdicionar = new JButton("Adicionar Despesa");
+        JButton btnEditar = new JButton("Editar Despesa");
         JButton btnExcluir = new JButton("Excluir Despesa");
 
-        btnAdicionar.addActionListener(e -> abrirDialogNovaDespesa());
+        btnAdicionar.addActionListener(e -> abrirDialogDespesa(null));
+        btnEditar.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(this, "Selecione uma despesa para editar.");
+                return;
+            }
+            Despesa d = controller.getPlanejamento().getDespesas().get(table.convertRowIndexToModel(row));
+            abrirDialogDespesa(d);
+        });
         btnExcluir.addActionListener(e -> {
             int row = table.getSelectedRow();
             if (row < 0) {
@@ -185,25 +195,30 @@ public class MainFrame extends JFrame {
         });
 
         pnlBotoes.add(btnAdicionar);
+        pnlBotoes.add(btnEditar);
         pnlBotoes.add(btnExcluir);
         painel.add(pnlBotoes, BorderLayout.SOUTH);
 
         return painel;
     }
 
-    private void abrirDialogNovaDespesa() {
+    // Reutiliza o formulário de inclusão; na edição, preenche os dados atuais.
+    private void abrirDialogDespesa(Despesa original) {
         if (controller.getPlanejamento().getParticipantes().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Cadastre ao menos um participante antes de criar despesas.", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        JTextField txtId = new JTextField();
-        JTextField txtDesc = new JTextField();
-        JTextField txtValor = new JTextField();
+        boolean editando = original != null;
+        JTextField txtId = new JTextField(editando ? original.getId() : "");
+        txtId.setEditable(!editando);
+        JTextField txtDesc = new JTextField(editando ? original.getDescricao() : "");
+        JTextField txtValor = new JTextField(editando ? original.getValorInformado().toPlainString() : "");
         JComboBox<String> cmbTipo = new JComboBox<>(new String[]{"Fixa", "Por pessoa"});
-        JCheckBox chkEssencial = new JCheckBox("Despesa Essencial?", true);
-        JTextField txtPrioridade = new JTextField("0");
-        txtPrioridade.setEnabled(false);
+        if (editando) cmbTipo.setSelectedItem(original.getTipo());
+        JCheckBox chkEssencial = new JCheckBox("Despesa Essencial?", !editando || original.isEssencial());
+        JTextField txtPrioridade = new JTextField(editando ? String.valueOf(original.getPrioridade()) : "0");
+        txtPrioridade.setEnabled(!chkEssencial.isSelected());
 
         chkEssencial.addActionListener(e -> {
             txtPrioridade.setEnabled(!chkEssencial.isSelected());
@@ -213,7 +228,7 @@ public class MainFrame extends JFrame {
         JPanel pnlCheckboxes = new JPanel(new GridLayout(0, 1));
         List<JCheckBox> checks = new ArrayList<>();
         for (Participante p : controller.getPlanejamento().getParticipantes()) {
-            JCheckBox chk = new JCheckBox(p.toString());
+            JCheckBox chk = new JCheckBox(p.toString(), editando && original.getParticipantes().contains(p));
             checks.add(chk);
             pnlCheckboxes.add(chk);
         }
@@ -228,7 +243,8 @@ public class MainFrame extends JFrame {
                 "Participantes Envolvidos:", new JScrollPane(pnlCheckboxes)
         };
 
-        int op = JOptionPane.showConfirmDialog(this, form, "Incluir Nova Despesa", JOptionPane.OK_CANCEL_OPTION);
+        int op = JOptionPane.showConfirmDialog(this, form,
+                editando ? "Editar Despesa" : "Incluir Nova Despesa", JOptionPane.OK_CANCEL_OPTION);
         if (op == JOptionPane.OK_OPTION) {
             try {
                 List<Participante> selecionados = new ArrayList<>();
@@ -241,10 +257,16 @@ public class MainFrame extends JFrame {
                 boolean ess = chkEssencial.isSelected();
                 int prio = Integer.parseInt(txtPrioridade.getText().trim());
 
-                controller.adicionarDespesa(txtId.getText(), txtDesc.getText(), valor,
-                        (String) cmbTipo.getSelectedItem(), selecionados, ess, prio);
+                if (editando) {
+                    controller.alterarDespesa(original.getId(), txtDesc.getText(), valor,
+                            (String) cmbTipo.getSelectedItem(), selecionados, ess, prio);
+                } else {
+                    controller.adicionarDespesa(txtId.getText(), txtDesc.getText(), valor,
+                            (String) cmbTipo.getSelectedItem(), selecionados, ess, prio);
+                }
 
                 atualizarTodasTabelas();
+                txtResultadoSimulador.setText("");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Validação Falhou", JOptionPane.ERROR_MESSAGE);
             }

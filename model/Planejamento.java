@@ -49,8 +49,10 @@ public class Planejamento implements Serializable {
 
     public void alterarParticipante(int codigo, String novoNome, BigDecimal novoOrcamento) throws ValidacaoException {
         Participante p = buscarParticipante(codigo);
-        p.setNome(novoNome);
-        p.setOrcamento(novoOrcamento);
+        // Valida os dois campos antes de alterar o participante existente.
+        Participante validado = new Participante(codigo, novoNome, novoOrcamento);
+        p.setNome(validado.getNome());
+        p.setOrcamento(validado.getOrcamento());
     }
 
     public void excluirParticipante(int codigo) throws ValidacaoException {
@@ -71,13 +73,35 @@ public class Planejamento implements Serializable {
     }
 
     public void adicionarDespesa(Despesa d) throws ValidacaoException {
-        if (d == null) throw new ValidacaoException("Despesa não pode ser nula.");
+        validarVinculos(d);
         for (Despesa existente : despesas) {
             if (existente.getId().equalsIgnoreCase(d.getId())) {
                 throw new ValidacaoException("Já existe despesa com o identificador: " + d.getId());
             }
         }
         despesas.add(d);
+    }
+
+    private void validarVinculos(Despesa d) throws ValidacaoException {
+        if (d == null) throw new ValidacaoException("Despesa não pode ser nula.");
+        for (Participante p : d.getParticipantes()) {
+            if (p == null || buscarParticipante(p.getCodigo()) != p) {
+                throw new ValidacaoException("Use apenas participantes cadastrados neste planejamento.");
+            }
+        }
+    }
+
+    // Substitui a despesa somente depois de validar todos os novos dados.
+    // O identificador original é preservado, inclusive ao trocar o tipo.
+    public void alterarDespesa(Despesa nova) throws ValidacaoException {
+        validarVinculos(nova);
+        for (int i = 0; i < despesas.size(); i++) {
+            if (despesas.get(i).getId().equals(nova.getId())) {
+                despesas.set(i, nova);
+                return;
+            }
+        }
+        throw new ValidacaoException("Despesa não encontrada para edição: " + nova.getId());
     }
 
     public void excluirDespesa(String id) throws ValidacaoException {
