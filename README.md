@@ -1,4 +1,4 @@
-# Cabe no Bolso — Planejador de Despesas Compartilhadas
+ # Cabe no Bolso — Planejador de Despesas Compartilhadas
 
 Aplicação em **Java + Swing** para planejar despesas compartilhadas em um passeio ou atividade em grupo: calcular quanto cada participante gastará e identificar se os valores **cabem no bolso** de cada um.
 
