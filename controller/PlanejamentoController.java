@@ -70,4 +70,4 @@ public class PlanejamentoController {
     public SimuladorOtimizacao.ResultadoSimulacao executarSimulador() {
         return SimuladorOtimizacao.simularMelhorCenario(this.planejamento);
     }
-}
+} 
