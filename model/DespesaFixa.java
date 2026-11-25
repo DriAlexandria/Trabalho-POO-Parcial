@@ -46,4 +46,4 @@ public class DespesaFixa extends Despesa {
     public String getTipo() {
         return "Fixa";
     }
-} 
+}
