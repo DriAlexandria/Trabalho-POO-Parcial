@@ -113,13 +113,12 @@ Trabalho-POO-Parcial/
 │
 └── .gitignore
 
+## Como executar
+```bash
 git clone https://github.com/DriAlexandria/Trabalho-POO-Parcial.git
 cd Trabalho-POO-Parcial
 javac -d out controller/*.java exception/*.java model/*.java persistence/*.java view/*.java
 java -cp out cabenobolso.view.MainFrame
-'''
-##
-'bash
-javac -cp out -d out test/TestePlanejamentoSuite.java
-java -cp out cabenobolso.test.TestePlanejamentoSuite 
 
+javac -cp out -d out test/TestePlanejamentoSuite.java
+java -cp out cabenobolso.test.TestePlanejamentoSuite
