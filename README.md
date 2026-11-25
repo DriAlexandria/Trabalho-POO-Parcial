@@ -121,4 +121,4 @@ javac -d out controller/*.java exception/*.java model/*.java persistence/*.java 
 java -cp out cabenobolso.view.MainFrame
 
 javac -cp out -d out test/TestePlanejamentoSuite.java
-java -cp out cabenobolso.test.TestePlanejamentoSuite
+java -cp out cabenobolso.test.TestePlanejamentoSuite 
