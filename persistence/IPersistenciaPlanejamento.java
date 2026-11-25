@@ -7,4 +7,4 @@ import java.io.File;
 public interface IPersistenciaPlanejamento {
     void salvar(Planejamento planejamento, File arquivo) throws PersistenciaException;
     Planejamento carregar(File arquivo) throws PersistenciaException;
-} 
+}
