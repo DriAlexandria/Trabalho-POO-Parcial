@@ -22,7 +22,7 @@ Aplicação em **Java + Swing** para planejar despesas compartilhadas em um pass
 
 | Integrante | Responsabilidade |
 |---|---|
-| Rebeca de Morais Lima | Model (`Participante`, `Despesa`, `DespesaFixa`, `DespesaPorPessoa`, `Planejamento`) + diagrama UML + relatório em PDF |
+| Rebeca de Morais Lima - 2641684 | Model + diagrama UML + relatório em PDF (organização, revisão ABNT e conferência com a proposta) + GitHub (subir o código, revisão do README, link acessível) + ajuda nos códigos da equipe (revisão e integração) |
 | Eduardo Carvalho Pereyra | Regras de negócio, simulador e exceções |
 | Drielly Alexandria Tavares | View (`MainFrame`, abas, tabelas e diálogos em Swing) + README + GitHub |
 | Pedro Henrique Marinho Eusébio | Persistência e integração MVC |
