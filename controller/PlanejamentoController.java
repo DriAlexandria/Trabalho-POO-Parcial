@@ -70,4 +70,41 @@ public class PlanejamentoController {
     public SimuladorOtimizacao.ResultadoSimulacao executarSimulador() {
         return SimuladorOtimizacao.simularMelhorCenario(this.planejamento);
     }
+
+    public void novoPlanejamento() throws ValidacaoException {
+        this.planejamento = new Planejamento("Novo Passeio");
+    }
+
+    public void carregarCasoReferencia() throws ValidacaoException {
+        Planejamento exemplo = new Planejamento("Passeio da Turma");
+
+        Participante ana = new Participante(
+                1, "Ana", new BigDecimal("70.00"));
+        Participante bruno = new Participante(
+                2, "Bruno", new BigDecimal("60.00"));
+        Participante carla = new Participante(
+                3, "Carla", new BigDecimal("70.00"));
+
+        exemplo.cadastrarParticipante(ana);
+        exemplo.cadastrarParticipante(bruno);
+        exemplo.cadastrarParticipante(carla);
+
+        exemplo.adicionarDespesa(new DespesaFixa(
+                "D1", "Transporte", new BigDecimal("90.00"),
+                List.of(ana, bruno, carla), true, 0));
+
+        exemplo.adicionarDespesa(new DespesaPorPessoa(
+                "D2", "Almoço", new BigDecimal("20.00"),
+                List.of(ana, bruno, carla), true, 0));
+
+        exemplo.adicionarDespesa(new DespesaFixa(
+                "D3", "Atividade recreativa", new BigDecimal("30.00"),
+                List.of(ana, carla), false, 3));
+
+        exemplo.adicionarDespesa(new DespesaPorPessoa(
+                "D4", "Sobremesa", new BigDecimal("10.00"),
+                List.of(ana, bruno, carla), false, 1));
+
+        this.planejamento = exemplo;
+    }
 }
