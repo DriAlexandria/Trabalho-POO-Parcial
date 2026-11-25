@@ -69,4 +69,4 @@ public class Participante implements Serializable, Comparable<Participante> {
     public String toString() {
         return codigo + " - " + nome;
     }
-} 
+}
