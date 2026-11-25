@@ -133,4 +133,4 @@ public class SimuladorOtimizacao {
         return new ResultadoSimulacao(true, "Solução ótima encontrada com prioridade somada: " + maxPrioridade,
                 mantidas, removidas, totaisFinais, custoTotalGeral.setScale(2, RoundingMode.HALF_UP), maxPrioridade);
     }
-} 
+}
