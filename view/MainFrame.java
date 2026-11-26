@@ -429,12 +429,29 @@ menuArquivo.add(item referência);
         }
     }
 
-    private void acaoNovo() {
-        int confirm = JOptionPane.showConfirmDialog(this, "Deseja iniciar um novo planejamento em branco?", "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                controller.carregarPlanejamento(null); // falha intencional se arquivo for nulo
-            } catch (PersistenciaException e) {
+   private void acaoNovo() {
+    int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Deseja iniciar um novo planejamento em branco?",
+        "Confirmar",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        try {
+            controller.novoPlanejamento();
+            atualizarTodasTabelas();
+            txtResultadoSimulador.setText("");
+        } catch (ValidacaoException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+}  (PersistenciaException e) {
                 try {
                     controller.salvarPlanejamento(null);
                 } catch (Exception ignored) {}
