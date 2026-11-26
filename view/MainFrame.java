@@ -51,32 +51,31 @@ public class MainFrame extends JFrame {
         getContentPane().add(tabbedPane, BorderLayout.CENTER);
     }
 
-    private JMenuBar criarBarraMenu() {
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menuArquivo = new JMenu("Arquivo");
+   private JMenuBar criarBarraMenu() {
+    JMenuBar menuBar = new JMenuBar();
+    JMenu menuArquivo = new JMenu("Arquivo");
 
-        JMenuItem itemSalvar = new JMenuItem("Salvar Planejamento...");
-        itemSalvar.addActionListener(e -> acaoSalvar());
+    JMenuItem itemNovo = new JMenuItem("Novo Planejamento");
+    itemNovo.addActionListener(e -> acaoNovo());
 
-        JMenuItem itemCarregar = new JMenuItem("Carregar Planejamento...");
-        itemCarregar.addActionListener(e -> acaoCarregar());
+    JMenuItem itemReferencia = new JMenuItem("Carregar Caso de Referência");
+    itemReferencia.addActionListener(e -> acaoCarregarCasoReferencia());
 
-        JMenuItem itemNovo = new JMenuItem("Novo Planejamento");
-        itemNovo.addActionListener(e ->
-private void acaoCarregarCasoReferencia() {
-    try {
-        controller.carregarCasoReferencia();
-        atualizarTodasTabelas();
-        txtResultadoSimulador.setText("");
+    JMenuItem itemSalvar = new JMenuItem("Salvar Planejamento...");
+    itemSalvar.addActionListener(e -> acaoSalvar());
 
-        JOptionPane.showMessageDialog(
-                this,
-                "Caso de referência carregado com sucesso!",
-                "Sucesso",
-                JOptionPane.INFORMATION_MESSAGE
-        );
+    JMenuItem itemCarregar = new JMenuItem("Carregar Planejamento...");
+    itemCarregar.addActionListener(e -> acaoCarregar());
 
-    } catch (ValidacaoException ex) {
+    menuArquivo.add(itemNovo);
+    menuArquivo.add(itemReferencia);
+    menuArquivo.addSeparator();
+    menuArquivo.add(itemSalvar);
+    menuArquivo.add(itemCarregar);
+
+    menuBar.add(menuArquivo);
+    return menuBar;
+}  catch (ValidacaoException ex) {
         JOptionPane.showMessageDialog(
                 this,
                 ex.getMessage(),
